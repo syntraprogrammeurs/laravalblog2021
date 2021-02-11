@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,10 +18,19 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Auth::routes();
+/**Bij het surfen naar het admin gedeelte worden enkel geregistreerde users doorgeleid naar
+ de onderstaande route. In het andere geval worden ze naar het logingedeelte geredirect**/
+Route::get('/admin', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+/**BEVEILIGDE ROUTES**/
+
+Route::group(['prefix'=>'admin', 'middleware'=>'auth'], function(){
+    Route::resource('users', App\Http\Controllers\AdminUsersController::class);
+});
+
+
+
