@@ -5,15 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Role extends Model
+class Photo extends Model
 {
     use HasFactory;
-
     protected $fillable = [
-        'name',
+        'file',
     ];
+    protected $uploads = '/images/';
+    public function getFileAttribute($photo){
+        return $this->uploads . $photo;
+}
 
-    public function users(){
-        return $this->belongsToMany(User::class, 'user_role');
-    }
+
+
 }

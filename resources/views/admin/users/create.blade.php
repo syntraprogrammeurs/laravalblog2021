@@ -20,7 +20,7 @@
         </div>
         <div class="form-group">
             {!! Form::label('Select roles: (hou de CTRL toets ingedrukt om meerdere roles te selecteren') !!}
-            {!! Form::select('role_id',$roles,null,['class'=>'form-control','multiple'=>'multiple'])!!}
+            {!! Form::select('roles[]',$roles,null,['class'=>'form-control','multiple'=>'multiple'])!!}
         </div>
         <div class="form-group">
             {!! Form::label('password', 'Password:') !!}

@@ -18,7 +18,6 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'role_id',
         'is_active',
         'email',
         'photo_id',
@@ -44,7 +43,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function role(){
-        return $this->belongsTo(Role::class);
+    public function roles(){
+        return $this->belongsToMany(Role::class, 'user_role');
+    }
+    public function photo(){
+        return $this->belongsTo(Photo::class);
     }
 }

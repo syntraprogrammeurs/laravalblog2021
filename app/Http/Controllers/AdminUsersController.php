@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UsersEditRequest;
 use App\Http\Requests\UsersRequest;
+use App\Models\Photo;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -23,7 +25,7 @@ class AdminUsersController extends Controller
     public function index()
     {
         //
-        $users = User::paginate(10);
+        $users = User::latest()->paginate(10);
         return view('admin.users.index', compact('users'));
     }
 
@@ -49,13 +51,23 @@ class AdminUsersController extends Controller
     {
         //
         //dd($request);
-        User::create([
-           'name'=> $request['name'],
-           'email'=> $request['email'],
-           'password'=>Hash::make($request['password']),
-           'role_id'=>$request['role_id'],
-           'is_active'=>$request['is_active'],
-        ]);
+        $user = new User();
+        $user->name= $request->name;
+        $user->email = $request->email;
+        $user->is_active = $request->is_active;
+        if($file = $request->file('photo_id')){
+            $name = time(). $file->getClientOriginalName();
+            $file->move('images', $name);
+            $photo = Photo::create(['file'=>$name]);
+            $user->photo_id = $photo->id;
+        }
+
+        $user->password = Hash::make($request['password']);
+        $user->save();
+
+        /**wegschrijven van de tussentabel**/
+        $user->roles()->sync($request->roles, false);
+
         return redirect('admin/users');
 
 
@@ -81,6 +93,9 @@ class AdminUsersController extends Controller
     public function edit($id)
     {
         //
+        $user = User::findOrFail($id);
+        $roles = Role::pluck('name','id')->all();
+        return view('admin.users.edit', compact('user', 'roles'));
     }
 
     /**
@@ -90,9 +105,31 @@ class AdminUsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UsersEditRequest $request, $id)
     {
         //
+        $user = User::findOrFail($id);
+        if(trim($request->password == '')){
+            $input = $request->except('password');
+        }else {
+            $input = $request->all();
+            $input['password'] = Hash::make($request['password']);
+        }
+
+        if($file = $request->file('photo_id')){
+            $name = time(). $file->getClientOriginalName();
+            $file->move('images', $name);
+            $photo = Photo::create(['file'=>$name]);
+           // dd($photo->id);
+            $input['photo_id'] = $photo->id;
+        }
+
+        $user->update($input);
+        /**wegschrijven van de tussentabel**/
+        $user->roles()->sync($request->roles, true);
+
+        return redirect('admin/users');
+
     }
 
     /**
@@ -104,5 +141,7 @@ class AdminUsersController extends Controller
     public function destroy($id)
     {
         //
+        User::findOrFail($id)->delete();
+        return redirect('/admin/users');
     }
 }
