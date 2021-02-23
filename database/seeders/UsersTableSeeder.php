@@ -26,6 +26,15 @@ class UsersTableSeeder extends Seeder
             'created_at'=>Carbon::now()->format('Y-m-d H:i:s'),
             'updated_at'=>Carbon::now()->format('Y-m-d H:i:s'),
         ]);
+        DB::table('users')->insert([
+            'is_active'=>1,
+            'name'=>'Tim',
+            'email'=>'vanhoutte.tim@gmail.com',
+            'photo_id'=>1,
+            'password'=>bcrypt(12345678),
+            'created_at'=>Carbon::now()->format('Y-m-d H:i:s'),
+            'updated_at'=>Carbon::now()->format('Y-m-d H:i:s'),
+        ]);
         User::factory()->count(50)->create();
     }
 }

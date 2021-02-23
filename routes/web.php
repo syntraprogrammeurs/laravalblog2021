@@ -22,11 +22,15 @@ Route::get('/', function () {
 Auth::routes();
 /**Bij het surfen naar het admin gedeelte worden enkel geregistreerde users doorgeleid naar
  de onderstaande route. In het andere geval worden ze naar het logingedeelte geredirect**/
-Route::get('/admin', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 
 
 
 /**BEVEILIGDE ROUTES**/
+Route::group(['middleware'=>'admin'], function(){
+    Route::get('/admin', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+});
 
 Route::group(['prefix'=>'admin', 'middleware'=>'auth'], function(){
     Route::resource('users', App\Http\Controllers\AdminUsersController::class);
