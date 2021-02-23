@@ -9,6 +9,7 @@ use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 
 class AdminUsersController extends Controller
 {
@@ -25,7 +26,9 @@ class AdminUsersController extends Controller
     public function index()
     {
         //
-        $users = User::latest()->paginate(10);
+        //$users = User::latest()->paginate(10);
+        $users = User::withTrashed()->paginate(10);
+
         return view('admin.users.index', compact('users'));
     }
 
@@ -141,7 +144,17 @@ class AdminUsersController extends Controller
     public function destroy($id)
     {
         //
-        User::findOrFail($id)->delete();
+        $user = User::findOrFail($id);
+        Session::flash('user_message', $user->name . 'was deleted!');
+        $user->delete();
+        //unlink(public_path() .$user->photo->file);
+        return redirect('/admin/users');
+    }
+    public function userRestore($id){
+        //whereId($id)
+        $user = User::onlyTrashed()->findOrFail($id);
+        User::onlyTrashed()->where('id',$id)->restore();
+        Session::flash('user_message', $user->name . 'was restored!');
         return redirect('/admin/users');
     }
 }

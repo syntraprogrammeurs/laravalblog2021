@@ -30,6 +30,7 @@ Route::get('/admin', [App\Http\Controllers\HomeController::class, 'index'])->nam
 
 Route::group(['prefix'=>'admin', 'middleware'=>'auth'], function(){
     Route::resource('users', App\Http\Controllers\AdminUsersController::class);
+    Route::get('users/restore/{user}','App\Http\Controllers\AdminUsersController@userRestore')->name('admin.userrestore');
 });
 
 

@@ -3,6 +3,9 @@
     Users
 @stop
 @section('content')
+    @if(Session::has('user_message'))
+        <p class="alert alert-info">{{session('user_message')}}</p>
+    @endif
     <h1>Users</h1>
     <table class="table table-striped">
         <thead>
@@ -15,6 +18,7 @@
             <th scope="col">Active</th>
             <th scope="col">Created</th>
             <th scope="col">Updated</th>
+            <th scope="col">Deleted</th>
         </tr>
         </thead>
         <tbody>
@@ -39,6 +43,19 @@
                     <td>{{$user->is_active == 1 ? 'Active' : 'Not Active'}}</td>
                     <td>{{$user->created_at}}</td>
                     <td>{{$user->updated_at}}</td>
+                    <td>{{$user->deleted_at}}
+                    <td>
+                        @if($user->deleted_at != null)
+                            <a class="btn btn-warning" href="{{route('admin.userrestore', $user->id)}}">Restore</a>
+                        @else
+                            {!! Form::open(['method'=>'DELETE',
+                            'action'=>['App\Http\Controllers\AdminUsersController@destroy', $user->id]]) !!}
+                                <div class="form-group">
+                                    {!! Form::submit('Delete', ['class'=>'btn btn-danger']) !!}
+                                </div>
+                            {!! Form::close() !!}
+                        @endif
+                    </td>
                 </tr>
             @endforeach
         @endif
