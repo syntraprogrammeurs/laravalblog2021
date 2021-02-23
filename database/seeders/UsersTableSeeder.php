@@ -21,6 +21,7 @@ class UsersTableSeeder extends Seeder
            'is_active'=>1,
            'name'=>'Tom',
            'email'=>'syntraprogrammeurs@gmail.com',
+           'email_verified_at'=>Carbon::now()->format('Y-m-d H:i:s'),
            'photo_id'=>1,
            'password'=>bcrypt(12345678),
             'created_at'=>Carbon::now()->format('Y-m-d H:i:s'),
