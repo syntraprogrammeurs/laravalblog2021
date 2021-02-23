@@ -6,7 +6,10 @@
     @if(Session::has('user_message'))
         <p class="alert alert-info">{{session('user_message')}}</p>
     @endif
-    <h1>Users</h1>
+    <h1><span class="badge badge-info display-1 shadow"><i class="fas fa-user"></i> Users</span></h1>
+    <p>
+        Displaying {{$users->count()}} of {{ $users->total() }} user(s).
+    </p>
     <table class="table table-striped">
         <thead>
         <tr>
@@ -41,7 +44,9 @@
                         @endforeach
                     </td>
                     <td>{{$user->is_active == 1 ? 'Active' : 'Not Active'}}</td>
-                    <td>{{$user->created_at}}</td>
+                    <td> {{ Carbon\Carbon::parse($user->created_at)->diffForHumans()}}
+                    </td>
+
                     <td>{{$user->updated_at}}</td>
                     <td>{{$user->deleted_at}}
                     <td>
@@ -62,5 +67,6 @@
         </tbody>
     </table>
     {{$users->links()}}
+
 @stop
 
