@@ -19,7 +19,7 @@ Route::get('/', function () {
 });
 
 
-Auth::routes();
+Auth::routes(['verify' =>true]);
 /**Bij het surfen naar het admin gedeelte worden enkel geregistreerde users doorgeleid naar
  de onderstaande route. In het andere geval worden ze naar het logingedeelte geredirect**/
 
@@ -28,11 +28,11 @@ Auth::routes();
 
 /**BEVEILIGDE ROUTES**/
 Route::group(['middleware'=>'admin'], function(){
-    Route::get('/admin', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/admin', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('verified');
 
 });
 
-Route::group(['prefix'=>'admin', 'middleware'=>'auth'], function(){
+Route::group(['prefix'=>'admin', 'middleware'=>['auth','verified']], function(){
     Route::resource('users', App\Http\Controllers\AdminUsersController::class);
     Route::get('users/restore/{user}','App\Http\Controllers\AdminUsersController@userRestore')->name('admin.userrestore');
 });
