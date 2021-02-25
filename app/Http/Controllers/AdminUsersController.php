@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\UsersSoftDelete;
 use App\Http\Requests\UsersEditRequest;
 use App\Http\Requests\UsersRequest;
 use App\Models\Photo;
@@ -146,6 +147,7 @@ class AdminUsersController extends Controller
         //
         $user = User::findOrFail($id);
         Session::flash('user_message', $user->name . 'was deleted!');
+        UsersSoftDelete::dispatch($user);
         $user->delete();
         //unlink(public_path() .$user->photo->file);
         return redirect('/admin/users');

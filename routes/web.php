@@ -15,8 +15,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('/contactformulier');
 });
+Route::get('/contactformulier', 'App\Http\Controllers\ContactController@create')->name('contactformulier.create');
+Route::post('/contactformulier', 'App\Http\Controllers\ContactController@store')->name('contactformulier.store');
+
 
 
 Auth::routes(['verify' =>true]);
@@ -27,14 +30,16 @@ Auth::routes(['verify' =>true]);
 
 
 /**BEVEILIGDE ROUTES**/
-Route::group(['middleware'=>'admin'], function(){
-    Route::get('/admin', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('verified');
+Route::group(['prefix'=>'admin', 'middleware'=>['auth','verified']], function(){
+    Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('verified');
 
 });
 
-Route::group(['prefix'=>'admin', 'middleware'=>['auth','verified']], function(){
+Route::group(['prefix'=>'admin', 'middleware'=>['auth','admin','verified']], function(){
     Route::resource('users', App\Http\Controllers\AdminUsersController::class);
     Route::get('users/restore/{user}','App\Http\Controllers\AdminUsersController@userRestore')->name('admin.userrestore');
+    Route::resource('posts', App\Http\Controllers\AdminPostsController::class);
+    Route::resource('categories',App\Http\Controllers\AdminCategoriesController::class);
 });
 
 

@@ -47,7 +47,7 @@
                     <td> {{ Carbon\Carbon::parse($user->created_at)->diffForHumans()}}
                     </td>
 
-                    <td>{{$user->updated_at}}</td>
+                    <td>{{$user->updated_at->diffForHumans()}}</td>
                     <td>{{$user->deleted_at}}
                     <td>
                         @if($user->deleted_at != null)

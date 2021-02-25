@@ -71,6 +71,37 @@
                 </div>
             </div>
         </li>
+        <!-- Nav Item - Posts Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePosts"
+               aria-expanded="true" aria-controls="collapsePosts">
+                <i class="fas fa-blog"></i>
+                <span>Posts</span>
+            </a>
+            <div id="collapsePosts" class="collapse" aria-labelledby="headingPosts" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Post Components:</h6>
+                    <a class="collapse-item" href="{{route('posts.index')}}">All posts</a>
+                    <a class="collapse-item" href="{{route('posts.create')}}">Create posts</a>
+                </div>
+            </div>
+        </li>
+        <!-- Nav Item - Categories Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCategories"
+               aria-expanded="true" aria-controls="collapseCategories">
+                <i class="fas fa-blog"></i>
+                <span>Categories</span>
+            </a>
+            <div id="collapseCategories" class="collapse" aria-labelledby="headingCategories"
+                 data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Category Components:</h6>
+                    <a class="collapse-item" href="{{route('categories.index')}}">All categories</a>
+                    <a class="collapse-item" href="{{route('categories.create')}}">Create categories</a>
+                </div>
+            </div>
+        </li>
 
         <!-- Nav Item - Utilities Collapse Menu -->
         <li class="nav-item">
