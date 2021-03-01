@@ -28,7 +28,7 @@ class AdminUsersController extends Controller
     {
         //
         //$users = User::latest()->paginate(10);
-        $users = User::withTrashed()->paginate(10);
+        $users = User::with(['photo','roles'])->withTrashed()->paginate(10);
 
         return view('admin.users.index', compact('users'));
     }
@@ -94,10 +94,10 @@ class AdminUsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
         //
-        $user = User::findOrFail($id);
+        //$user = User::findOrFail($id);
         $roles = Role::pluck('name','id')->all();
         return view('admin.users.edit', compact('user', 'roles'));
     }
@@ -142,10 +142,10 @@ class AdminUsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
         //
-        $user = User::findOrFail($id);
+       // $user = User::findOrFail($id);
         Session::flash('user_message', $user->name . 'was deleted!');
         UsersSoftDelete::dispatch($user);
         $user->delete();
