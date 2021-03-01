@@ -149,6 +149,10 @@ class AdminUsersController extends Controller
         Session::flash('user_message', $user->name . 'was deleted!');
         UsersSoftDelete::dispatch($user);
         $user->delete();
+            foreach($user->posts as $post){
+               $post->forceDelete();
+            }
+
         //unlink(public_path() .$user->photo->file);
         return redirect('/admin/users');
     }

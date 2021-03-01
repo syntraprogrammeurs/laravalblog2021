@@ -53,6 +53,9 @@
                             {!! Form::close() !!}
                         @endif
                     </td>
+                    <td>
+                        <a class="btn btn-info" href="{{route('posts.show', $post->id)}}">Show</a>
+                    </td>
                 </tr>
             @endforeach
         @endif
