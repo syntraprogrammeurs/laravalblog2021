@@ -7,14 +7,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Post extends Model
+class PostComment extends Model
 {
     use HasFactory;
     use SoftDeletes;
 
-    protected $fillable = [
-        'photo_id','user_id','category_id','title','slug', 'body'
-    ];
+    protected $fillable = ['post_id','photo_id', 'user_id', 'category_id', 'title', 'body'];
 
     public function user(){
         return $this->belongsTo(User::class);
@@ -25,7 +23,8 @@ class Post extends Model
     public function photo(){
         return $this->belongsTo(Photo::class);
     }
-    public function postcomments(){
-        return $this->hasMany(PostComment::class);
+    public function post(){
+        return $this->belongsTo(Post::class);
     }
+
 }

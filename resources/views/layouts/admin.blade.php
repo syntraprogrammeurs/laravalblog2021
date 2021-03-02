@@ -102,6 +102,21 @@
                 </div>
             </div>
         </li>
+        <!-- Nav Item - PostComments Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePostComments"
+               aria-expanded="true" aria-controls="collapsePostComments">
+                <i class="fas fa-comment"></i>
+                <span>Post Comments</span>
+            </a>
+            <div id="collapsePostComments" class="collapse" aria-labelledby="headingPostComments"
+                 data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Post comments Components:</h6>
+                    <a class="collapse-item" href="{{route('comments.index')}}">All Post Comments</a>
+                </div>
+            </div>
+        </li>
 
         <!-- Nav Item - Utilities Collapse Menu -->
         <li class="nav-item">

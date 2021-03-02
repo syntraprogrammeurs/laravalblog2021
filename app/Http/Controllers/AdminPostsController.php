@@ -17,7 +17,7 @@ class AdminPostsController extends Controller
      */
     public function index()
     {
-        $posts = Post::latest()->paginate(10);
+        $posts = Post::with(['photo','user','category'])->latest()->paginate(10);
         return view('admin.posts.index', compact('posts'));
 
     }
@@ -123,5 +123,11 @@ class AdminPostsController extends Controller
         unlink(public_path() . $post->photo->file);
         $post->delete();
         return redirect('admin/posts');
+    }
+
+    public function post($id){
+       $post = Post::with(['user','photo'])->findOrFail($id);
+       $postcomments = $post->postcomments()->whereIsActive(1)->get();
+       return view('post', compact('post', 'postcomments'));
     }
 }
