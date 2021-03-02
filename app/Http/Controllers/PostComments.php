@@ -17,7 +17,8 @@ class PostComments extends Controller
     public function index()
     {
         //
-        return view('admin.comments.index');
+        $comments = PostComment::with(['user','post'])->latest()->paginate(10);
+        return view('admin.comments.index', compact('comments'));
 
     }
 
@@ -89,6 +90,9 @@ class PostComments extends Controller
     public function update(Request $request, $id)
     {
         //
+
+        Postcomment::findOrFail($id)->update($request->all());
+        return redirect('admin/comments');
     }
 
     /**

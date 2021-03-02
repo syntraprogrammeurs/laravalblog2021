@@ -35,7 +35,7 @@
                     <td>{{$post->user ? $post->user->name : 'Username unknown'}}</td>
                     <td>{{$post->category ? $post->category->name : 'Category unknown'}}</td>
                     <td>
-                        <a href="{{route('home.post', $post->id)}}">{{$post->title}}</a>
+                        <a href="{{route('home.post', $post)}}">{{$post->title}}</a>
 
                     </td>
                     <td>{{$post->body}}</td>

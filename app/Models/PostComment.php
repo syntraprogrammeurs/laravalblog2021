@@ -12,7 +12,7 @@ class PostComment extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $fillable = ['post_id','photo_id', 'user_id', 'category_id', 'title', 'body'];
+    protected $fillable = ['post_id','photo_id', 'user_id', 'category_id', 'title', 'body','is_active'];
 
     public function user(){
         return $this->belongsTo(User::class);

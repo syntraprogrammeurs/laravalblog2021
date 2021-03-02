@@ -28,4 +28,8 @@ class Post extends Model
     public function postcomments(){
         return $this->hasMany(PostComment::class);
     }
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 }
