@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 /**FRONTEND**/
 Route::get('/', function () {
-    return view('/contactformulier');
+    return view('/index');
 });
 Route::get('/contactformulier', 'App\Http\Controllers\ContactController@create')->name('contactformulier.create');
 Route::post('/contactformulier', 'App\Http\Controllers\ContactController@store')->name('contactformulier.store');
@@ -44,6 +44,7 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth','admin','verified']], fun
     Route::resource('posts', App\Http\Controllers\AdminPostsController::class);
     Route::resource('categories',App\Http\Controllers\AdminCategoriesController::class);
     Route::resource('comments', App\Http\Controllers\PostComments::class);
+    Route::resource('replies', App\Http\Controllers\AdminPostCommentReplies::class);
 });
 
 

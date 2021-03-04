@@ -7,6 +7,7 @@ use App\Models\Photo;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class AdminPostsController extends Controller
 {
@@ -51,6 +52,7 @@ class AdminPostsController extends Controller
             $photo = Photo::create(['file'=>$name]);
             $input['photo_id'] = $photo->id;
         }
+        $input['slug']= Str::slug($request->title, '-');
         $user->posts()->create($input);
         return redirect('admin/posts');
     }
@@ -103,7 +105,7 @@ class AdminPostsController extends Controller
             $photo = Photo::create(['file'=>$name]);
             $input['photo_id'] = $photo->id;
         }
-
+        $input['slug']= Str::slug($request->title, '-');
         $post->update($input);
         return redirect('admin/posts');
 
@@ -128,8 +130,7 @@ class AdminPostsController extends Controller
     public function post($slug){
 
        $post = Post::with(['user', 'photo'])->where('slug',$slug)->first();
-
-       $postcomments = $post->postcomments()->whereIsActive(1)->get();
+       $postcomments = $post->postcomments()->with(['user', 'photo'])->whereIsActive(1)->get();
        return view('post', compact('post', 'postcomments'));
     }
 }

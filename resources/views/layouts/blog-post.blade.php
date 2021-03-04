@@ -1,27 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="description" content="">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-
-    <!-- Title  -->
-    <title>TheGazette - News Magazine HTML5 Template | Single Post</title>
-
-    <!-- Favicon  -->
-    <link rel="icon" href="{{asset('images/imagesfront/core-img/favicon.ico')}}">
-
-    <!-- Core Style CSS -->
-    <link rel="stylesheet" href="{{asset('css/cssfront/core-style.css')}}">
-    <link rel="stylesheet" href="{{asset('css/cssfront/style.css')}}">
-
-    <!-- Responsive CSS -->
-    <link href="{{asset('css/cssfront/responsive.css')}}" rel="stylesheet">
-
-</head>
+@include('includes.header')
 
 <body>
 <!-- Header Area Start -->
@@ -273,30 +250,61 @@
                                         <span class="comment-date
                                         font-pt">{{$postcomment->created_at->diffForhumans()}}</span>
                                         <p>{{$postcomment->body}}</p>
-                                        <a class="reply-btn" href="#">Reply <i class="fa fa-reply"
-                                                                               aria-hidden="true"></i></a>
+                                        <div id="accordion">
+
+                                            <a class="reply-btn" href="#"  aria-expanded="false"
+                                               data-toggle="collapse"
+                                               data-target="#collapse{{$postcomment->id}}"
+                                               aria-controls="collapse{{$postcomment->id}}">Reply <i class="fa fa-reply"
+                                                                                  ></i></a>
+
+
+                                            <div id="collapse{{$postcomment->id}}" class="pr-3 pt-3 collapse">
+                                                @auth
+                                                    <form  action="{{action
+                                                    ('App\Http\Controllers\AdminPostCommentReplies@store')}}"
+                                                          method="post">
+                                                        @csrf
+                                                        <input type="hidden" name="postcomment_id"
+                                                               value="{{$postcomment->id}}">
+                                                        <div class="form-group">
+                                    <textarea class="form-control  bg-dark" name="body" id="message" cols="30" rows="10"
+                                              placeholder="Message"></textarea>
+                                                        </div>
+                                                        <button type="submit" class="btn leave-comment-btn">SUBMIT <i
+                                                                class="fa fa-angle-right ml-2"></i></button>
+                                                    </form>
+                                                @endauth
+                                            </div>
+                                        </div>
+
+
                                     </div>
                                 </div>
                                 <ol class="children">
-                                    <li class="single_comment_area">
-                                        <div class="comment-wrapper d-md-flex align-items-start">
-                                            <!-- Comment Meta -->
-                                            <div class="comment-author">
-                                                <img src="{{asset('images/imagesfront/blog-img/25.jpg')}}" alt="">
-                                            </div>
-                                            <!-- Comment Content -->
-                                            <div class="comment-content">
-                                                <h5>John Doe</h5>
-                                                <span class="comment-date text-muted">December 18, 2017</span>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dictum
-                                                    nunc libero, vitae rutrum nunc porta id. Interdum et malesuada fames
-                                                    ac ante ipsum primis in faucibus. Nam arcu augue, semper at
-                                                    elementum nec, cursus nec ante.</p>
-                                                <a class="reply-btn" href="#">Reply <i class="fa fa-reply"
-                                                                                       aria-hidden="true"></i></a>
-                                            </div>
-                                        </div>
-                                    </li>
+{{--                                    @if(count($postcomment->postcommentreplies) > 0)--}}
+
+                                        @foreach($postcomment->postcommentreplies as $postcommentreply)
+
+                                            <li class="single_comment_area">
+                                                <div class="comment-wrapper d-md-flex align-items-start">
+                                                    <!-- Comment Meta -->
+                                                    <div class="comment-author">
+                                                        <img src="{{asset('images/imagesfront/blog-img/25.jpg')}}" alt="">
+                                                    </div>
+                                                    <!-- Comment Content -->
+                                                    <div class="comment-content">
+                                                        <h5>{{$postcommentreply->user}}</h5>
+                                                        <span class="comment-date
+                                                        text-muted">{{$postcommentreply->created_at->diffForHumans()}}</span>
+                                                        <p>{{$postcommentreply->body}}</p>
+                                                        <a class="reply-btn" href="#">Reply <i class="fa fa-reply"
+                                                                                               aria-hidden="true"></i></a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        @endforeach
+{{--                                    @endif--}}
                                 </ol>
                             </li>
 

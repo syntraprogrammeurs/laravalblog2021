@@ -26,6 +26,7 @@
                 <div class="col-12 col-md-8">
                     <div class="single-post-text">
                         <p>{{$post->body}}</p>
+
                     </div>
                 </div>
 

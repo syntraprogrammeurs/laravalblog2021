@@ -26,5 +26,8 @@ class PostComment extends Model
     public function post(){
         return $this->belongsTo(Post::class);
     }
+    public function postcommentreplies(){
+        return $this->hasMany(PostCommentReply::class,'postcomment_id');
+    }
 
 }
