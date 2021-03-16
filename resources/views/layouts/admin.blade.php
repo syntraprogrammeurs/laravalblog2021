@@ -139,6 +139,22 @@
                 </div>
             </div>
         </li>
+        <!-- Nav Item - Productcategories Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProductcategories"
+               aria-expanded="true" aria-controls="collapseProductcategories">
+                <i class="fas fa-box"></i>
+                <span>Productcategories</span>
+            </a>
+            <div id="collapseProductcategories" class="collapse" aria-labelledby="headingProductcategories"
+                 data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Product categories:</h6>
+                    <a class="collapse-item" href="{{route('productcategories.index')}}">All Productcategories</a>
+                    <a class="collapse-item" href="{{route('productcategories.create')}}">Create productcategory</a>
+                </div>
+            </div>
+        </li>
         <!-- Nav Item - Brands Collapse Menu -->
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBrands"

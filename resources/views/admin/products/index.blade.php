@@ -12,6 +12,8 @@
         <tr>
             <th scope="col">Id</th>
             <th scope="col">Photo</th>
+            <th scope="col">Product category</th>
+            <th scope="col">Brand</th>
             <th scope="col">Name</th>
             <th scope="col">Tags</th>
             <th scope="col">Body</th>
@@ -29,6 +31,8 @@
                         <img height="62" src="{{$product->photo ? asset('images/products') . $product->photo->file : 'http://placehold.it/62x62'}}" alt="{{$product->name}}">
 
                     </td>
+                    <td>{{$product->productcategory ? $product->productcategory->name : 'No category'}}</td>
+                    <td>{{$product->brand->name ? $product->brand->name : 'No brand'}}</td>
                     <td>{{$product->name ? $product->name : 'Username unknown'}}</td>
                     <td>
                         @foreach($product->tags as $tag)

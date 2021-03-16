@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     use HasFactory;
-    protected $fillable=['photo_id','name','body'];
+    protected $fillable=['photo_id','brand_id', 'productcategory_id','name','body'];
 
     public function tags(){
         return $this->morphToMany(Tag::class, 'taggable');
@@ -18,5 +18,8 @@ class Product extends Model
     }
     public function brand(){
         return $this->belongsTo(Brand::class);
+    }
+    public function productcategory(){
+        return $this->belongsTo(ProductCategory::class,'productcategory_id');
     }
 }

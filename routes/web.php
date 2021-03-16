@@ -47,6 +47,7 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth','admin','verified']], fun
     Route::resource('replies', App\Http\Controllers\AdminPostCommentReplies::class);
     Route::resource('products', App\Http\Controllers\AdminProductsController::class);
     Route::resource('brands', App\Http\Controllers\AdminBrandsController::class);
+    Route::resource('productcategories', App\Http\Controllers\AdminProductCategory::class);
 });
 
 

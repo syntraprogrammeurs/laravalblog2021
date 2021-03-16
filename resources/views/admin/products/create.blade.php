@@ -7,9 +7,19 @@
             {!! Form::open(['method'=>'POST', 'action'=>'App\Http\Controllers\AdminProductsController@store',
             'files'=>true]) !!}
             <div class="form-group">
+                {!! Form::label('productcategory_id', 'Product category:') !!}
+                {!! Form::select('productcategory_id',[''=>'Choose productcategory'] + $productcategories,null,['class'=>'form-control','multiple']) !!}
+            </div>
+            <div class="form-group">
+                {!! Form::label('brand_id', 'Brand:') !!}
+                {!! Form::select('brand_id',[''=>'Choose brand'] + $brands,null,['class'=>'form-control','multiple']) !!}
+            </div>
+
+            <div class="form-group">
                 {!! Form::label('name', 'Name:') !!}
                 {!! Form::text('name', null,['class'=>'form-control']) !!}
             </div>
+
             <div class="form-group">
                 {!! Form::label('tag_id', 'Tags:') !!}
                 {!! Form::select('tag_id[]',[''=>'Choose tags'] + $tags,null,['class'=>'form-control','multiple']) !!}

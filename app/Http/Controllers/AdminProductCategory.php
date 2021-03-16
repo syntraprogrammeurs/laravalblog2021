@@ -2,16 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Brand;
-use App\Models\Photo;
-use App\Models\Product;
 use App\Models\ProductCategory;
-use App\Models\Tag;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 
-class AdminProductsController extends Controller
+class AdminProductCategory extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,8 +15,8 @@ class AdminProductsController extends Controller
     public function index()
     {
         //
-        $products= Product::paginate(10);
-        return view('admin.products.index', compact('products'));
+        $productcategories = ProductCategory::paginate(10);
+        return view('admin.productcategories.index', compact('productcategories'));
     }
 
     /**
@@ -33,10 +27,7 @@ class AdminProductsController extends Controller
     public function create()
     {
         //
-        $brands= Brand::pluck('name', 'id')->all();
-        $productcategories = ProductCategory::pluck('name', 'id')->all();
-        $tags = Tag::pluck('name','id')->all();
-        return view('admin.products.create', compact('tags','brands','productcategories'));
+        return view('admin.productcategories.create');
     }
 
     /**
@@ -48,30 +39,8 @@ class AdminProductsController extends Controller
     public function store(Request $request)
     {
         //
-       // ddd($request);
-        $input = $request->all();
-        $user = Auth::user();
-        if($file = $request->file('photo_id')){
-            $name = time().$file->getClientOriginalName();
-            $file->move('images/products', $name);
-            $photo = Photo::create(['file'=>$name]);
-            $input['photo_id'] = $photo->id;
-        }
-        $input['slug']= Str::slug($request->title, '-');
-        //$userposts = $user->posts()->create($input);
-        $product= Product::create($input);
-
-        $tags = $request->tag_id;
-
-
-        foreach($tags as $tag){
-
-            $tagfind = Tag::findOrFail($tag);
-
-            $product->tags()->save($tagfind);
-        }
-        return redirect('/admin');
-
+        ProductCategory::create($request->all());
+        return redirect('admin/productcategories');
     }
 
     /**
@@ -91,9 +60,11 @@ class AdminProductsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(ProductCategory $productcategory)
     {
         //
+        //$productcategory = Product::findOrFail($id);
+        return view('admin.productcategories.edit', compact('productcategory'));
     }
 
     /**
@@ -103,9 +74,12 @@ class AdminProductsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,ProductCategory $productcategory)
     {
         //
+        //$productcategory = ProductCategory::findOrFail($id);
+        $productcategory->update($request->all());
+        return redirect('admin/productcategories');
     }
 
     /**
