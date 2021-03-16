@@ -29,7 +29,7 @@
                 <tr>
                     <td>{{$post->id}}</td>
                    <td>
-                        <img height="62" src="{{$post->photo ? asset($post->photo->file) : 'http://placehold.it/62x62'}}" alt="{{$post->name}}">
+                        <img height="62" src="{{$post->photo ? asset('images/posts') . $post->photo->file : 'http://placehold.it/62x62'}}" alt="{{$post->name}}">
 
                     </td>
                     <td>{{$post->user ? $post->user->name : 'Username unknown'}}</td>

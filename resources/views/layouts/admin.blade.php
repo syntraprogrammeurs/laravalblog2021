@@ -123,6 +123,39 @@
                 </div>
             </div>
         </li>
+        <!-- Nav Item - Products Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProducts"
+               aria-expanded="true" aria-controls="collapseProducts">
+                <i class="fab fa-product-hunt"></i>
+                <span>Products</span>
+            </a>
+            <div id="collapseProducts" class="collapse" aria-labelledby="headingProducts"
+                 data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Product Components:</h6>
+                    <a class="collapse-item" href="{{route('products.index')}}">All Products</a>
+                    <a class="collapse-item" href="{{route('products.create')}}">Create product</a>
+                </div>
+            </div>
+        </li>
+        <!-- Nav Item - Brands Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBrands"
+               aria-expanded="true" aria-controls="collapseBrands">
+                <i class="fas fa-asterisk"></i>
+                <span>Brands</span>
+            </a>
+            <div id="collapseBrands" class="collapse" aria-labelledby="headingBrands"
+                 data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Brand Components:</h6>
+                    <a class="collapse-item" href="{{route('brands.index')}}">All Brands</a>
+                    <a class="collapse-item" href="{{route('brands.create')}}">Create Brand</a>
+                </div>
+            </div>
+        </li>
+
 
         <!-- Nav Item - Utilities Collapse Menu -->
         <li class="nav-item">

@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
+use App\Models\Photo;
+use App\Models\Product;
+use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
-class AdminCategoriesController extends Controller
+class AdminProductsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,10 +19,8 @@ class AdminCategoriesController extends Controller
     public function index()
     {
         //
-        $categories = Category::orderBy('name')->paginate(10);
-        return view ('admin.categories.index', compact('categories'));
-
-
+        $products= Product::paginate(10);
+        return view('admin.products.index', compact('products'));
     }
 
     /**
@@ -29,8 +31,8 @@ class AdminCategoriesController extends Controller
     public function create()
     {
         //
-        return view('admin.categories.create');
-
+        $tags = Tag::pluck('name','id')->all();
+        return view('admin.products.create', compact('tags'));
     }
 
     /**
@@ -42,10 +44,30 @@ class AdminCategoriesController extends Controller
     public function store(Request $request)
     {
         //
-        Category::create($request->all());
-        return redirect('admin/categories');
+       // ddd($request);
+        $input = $request->all();
+        $user = Auth::user();
+        if($file = $request->file('photo_id')){
+            $name = time().$file->getClientOriginalName();
+            $file->move('images/products', $name);
+            $photo = Photo::create(['file'=>$name]);
+            $input['photo_id'] = $photo->id;
+        }
+        $input['slug']= Str::slug($request->title, '-');
+        //$userposts = $user->posts()->create($input);
+        $product= Product::create($input);
 
-        //eturn redirect()->back();
+        $tags = $request->tag_id;
+
+
+        foreach($tags as $tag){
+
+            $tagfind = Tag::findOrFail($tag);
+
+            $product->tags()->save($tagfind);
+        }
+        return redirect('/admin');
+
     }
 
     /**
@@ -68,8 +90,6 @@ class AdminCategoriesController extends Controller
     public function edit($id)
     {
         //
-        $category = Category::findOrFail($id);
-        return view('admin.categories.edit', compact('category'));
     }
 
     /**
@@ -82,10 +102,6 @@ class AdminCategoriesController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $category = Category::findOrFail($id);
-        $category->update($request->all());
-        return redirect('admin/categories');
-
     }
 
     /**
@@ -97,9 +113,5 @@ class AdminCategoriesController extends Controller
     public function destroy($id)
     {
         //
-        $category = Category::findOrFail($id);
-        $category->delete();
-        return redirect('admin/categories');
-
     }
 }

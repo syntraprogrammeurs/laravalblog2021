@@ -23,6 +23,8 @@ class DatabaseSeeder extends Seeder
             UsersRolesTableSeeder::class,
             PostsTableSeeder::class,
             CategoriesTableSeeder::class,
+            TagsTableSeeder::class,
+            BrandTableSeeder::class,
         ]);
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Photo;
 use App\Models\Post;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -31,8 +32,9 @@ class AdminPostsController extends Controller
     public function create()
     {
         //
+        $tags = Tag::pluck('name', 'id')->all();
         $categories = Category::pluck('name', 'id')->all();
-        return view('admin.posts.create', compact('categories'));
+        return view('admin.posts.create', compact('categories','tags'));
     }
 
     /**
@@ -44,16 +46,30 @@ class AdminPostsController extends Controller
     public function store(Request $request)
     {
         //
+        //ddd($request);
         $input = $request->all();
         $user = Auth::user();
         if($file = $request->file('photo_id')){
             $name = time().$file->getClientOriginalName();
-            $file->move('images', $name);
+            $file->move('images/posts', $name);
             $photo = Photo::create(['file'=>$name]);
             $input['photo_id'] = $photo->id;
         }
         $input['slug']= Str::slug($request->title, '-');
-        $user->posts()->create($input);
+        $userposts = $user->posts()->create($input);
+
+        $tags = $request->tag_id;
+        $post = Post::findOrFail($userposts->id);
+
+        foreach($tags as $tag){
+
+            $tagfind = Tag::findOrFail($tag);
+
+            $post->tags()->save($tagfind);
+        }
+
+
+
         return redirect('admin/posts');
     }
 
@@ -101,7 +117,7 @@ class AdminPostsController extends Controller
 
         if($file = $request->file('photo_id')){
             $name = time().$file->getClientOriginalName();
-            $file->move('images', $name);
+            $file->move('images/posts', $name);
             $photo = Photo::create(['file'=>$name]);
             $input['photo_id'] = $photo->id;
         }

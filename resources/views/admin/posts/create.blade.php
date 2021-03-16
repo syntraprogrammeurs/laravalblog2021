@@ -3,12 +3,17 @@
 <h1>Create Post</h1>
 <div class="row">
     <div class="col-12">
+
         @include('includes.form_error')
         {!! Form::open(['method'=>'POST', 'action'=>'App\Http\Controllers\AdminPostsController@store',
         'files'=>true]) !!}
         <div class="form-group">
             {!! Form::label('title', 'Title:') !!}
             {!! Form::text('title', null,['class'=>'form-control']) !!}
+        </div>
+        <div class="form-group">
+            {!! Form::label('tag_id', 'Tags:') !!}
+            {!! Form::select('tag_id[]',[''=>'Choose tags'] + $tags,null,['class'=>'form-control','multiple']) !!}
         </div>
         <div class="form-group">
             {!! Form::label('category_id', 'Category:') !!}
