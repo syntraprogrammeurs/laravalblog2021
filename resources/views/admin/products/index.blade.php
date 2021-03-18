@@ -38,7 +38,7 @@
                                 <img height="62"
                                      src="{{$product->photo ? asset('images/products') . $product->photo->file : 'http://placehold.it/62x62'}}"
                                      alt="{{$product->name}}">
-
+                                <p class="badge badge-success text-center w-50">{{$product->price}}</p>
                             </td>
                             <td>{{$product->productcategory ? $product->productcategory->name : 'No category'}}</td>
                             <td>{{$product->brand->name ? $product->brand->name : 'No brand'}}</td>

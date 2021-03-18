@@ -21,6 +21,10 @@ Route::get('/', function () {
 Route::get('/contactformulier', 'App\Http\Controllers\ContactController@create')->name('contactformulier.create');
 Route::post('/contactformulier', 'App\Http\Controllers\ContactController@store')->name('contactformulier.store');
 Route::get('/post/{slug}', 'App\Http\Controllers\AdminPostsController@post')->name('home.post');
+Route::get('/shop', 'App\Http\Controllers\FrontendController@index')->name('shop');
+Route::get('/products/brand/{id}','App\Http\Controllers\FrontendController@productsPerBrand')->name('productsperbrand');
+Route::get('/addToCart/{id}','App\Http\Controllers\FrontendController@addToCart')->name('addtocart');
+Route::get('/checkout','App\Http\Controllers\FrontendController@cart')->name('checkout');
 
 
 

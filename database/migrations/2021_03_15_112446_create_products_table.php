@@ -20,6 +20,7 @@ class CreateProductsTable extends Migration
             $table->integer('photo_id')->unsigned()->index();
             $table->string('name');
             $table->text('body');
+            $table->unsignedDecimal('price',8,2);
             $table->timestamps();
         });
     }
