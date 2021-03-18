@@ -30,7 +30,9 @@ class AdminUsersController extends Controller
         //$users = User::latest()->paginate(10);
         $users = User::with(['photo','roles'])->withTrashed()->paginate(10);
 
-        return view('admin.users.index', compact('users'));
+
+
+        return view('admin.users.index', compact('users', 'allUsers'));
     }
 
     /**

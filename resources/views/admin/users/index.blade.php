@@ -7,7 +7,10 @@
         <p class="alert alert-info">{{session('user_message')}}</p>
     @endif
     <h1><span class="badge badge-info display-1 shadow"><i class="fas fa-user"></i> Users</span></h1>
+
     <p>
+
+
         Displaying {{$users->count()}} of {{ $users->total() }} user(s).
     </p>
     <table class="table table-striped">
