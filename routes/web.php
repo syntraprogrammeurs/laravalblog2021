@@ -23,8 +23,10 @@ Route::post('/contactformulier', 'App\Http\Controllers\ContactController@store')
 Route::get('/post/{slug}', 'App\Http\Controllers\AdminPostsController@post')->name('home.post');
 Route::get('/shop', 'App\Http\Controllers\FrontendController@index')->name('shop');
 Route::get('/products/brand/{id}','App\Http\Controllers\FrontendController@productsPerBrand')->name('productsperbrand');
+//cart
 Route::get('/addToCart/{id}','App\Http\Controllers\FrontendController@addToCart')->name('addtocart');
 Route::get('/checkout','App\Http\Controllers\FrontendController@cart')->name('checkout');
+Route::post('/checkout','App\Http\Controllers\FrontendController@updateQuantity')->name('quantity');
 
 
 

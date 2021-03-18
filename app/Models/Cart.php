@@ -46,9 +46,21 @@ class Cart extends Model
         $shopItems['product_image']= $product->photo->file;
         $shopItems['product_body']= $product->body;
 
-
+        $this->totalQuantity++;
         $this->totalPrice += $product->price;
-        $this->products['product_id']= $shopItems;
+        $this->products[$product_id]= $shopItems;
 
+    }
+    public function updateQuantity($id,$quantity){
+        $this->totalQuantity -= $this->products[$id]['quantity'];
+        $this->totalQuantity += $quantity;
+
+        if($this->products[$id]['quantity'] < $quantity){
+            $this->totalPrice -= ($this->products[$id]['quantity']*$this->products[$id]['product_price']);
+            $this->totalPrice += ($quantity*$this->products[$id]['product_price']);
+        }else{
+            $this->totalPrice -= ($this->products[$id]['quantity']-$quantity)*$this->products[$id]['product_price'];
+        }
+        $this->products[$id]['quantity']= $quantity;
     }
 }

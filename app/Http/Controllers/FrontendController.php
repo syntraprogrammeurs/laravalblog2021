@@ -39,7 +39,23 @@ class FrontendController extends Controller
 
     }
     public function cart(){
-        return view('checkout');
 
+        if(!Session::has('cart')){
+            return redirect('shop');
+        }else{
+            $currentCart =Session::has('cart') ? Session::get('cart') : null;
+            $cart = new Cart($currentCart);
+            $cart = $cart->products;
+            return view('checkout',compact('cart'));
+        }
+
+
+    }
+    public function updateQuantity(Request $request){
+        $oldCart = Session::has('cart') ? Session::get('cart') : null;
+        $cart = new Cart($oldCart);
+        $cart->updateQuantity($request->id, $request->quantity);
+        Session::put('cart', $cart);
+        return redirect()->back();
     }
 }
