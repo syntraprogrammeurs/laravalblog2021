@@ -40,6 +40,9 @@
                                                 class="fas fa-euro">Update Price</i></button>
 
                                     </form>
+                                    <a class="text-danger" href="{{route('removeItem', $item['product_id'])}}"><i
+                                            class="fas
+                                    fa-times"></i></a>
                                 </div>
                                 <div class="col-6">
                                     <div class="d-flex flex-column">

@@ -11,6 +11,10 @@ const mix = require('laravel-mix');
  |
  */
 
+//backend
 mix.js('resources/js/app.js', 'public/js')
-    .vue()
     .sass('resources/sass/app.scss', 'public/css');
+
+//frontend
+mix.js('resources/js/front-app.js', 'public/js')
+    .sass('resources/sass/front-app.scss', 'public/css');

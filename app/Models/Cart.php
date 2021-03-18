@@ -52,15 +52,23 @@ class Cart extends Model
 
     }
     public function updateQuantity($id,$quantity){
+
         $this->totalQuantity -= $this->products[$id]['quantity'];
+
         $this->totalQuantity += $quantity;
 
         if($this->products[$id]['quantity'] < $quantity){
+
             $this->totalPrice -= ($this->products[$id]['quantity']*$this->products[$id]['product_price']);
             $this->totalPrice += ($quantity*$this->products[$id]['product_price']);
         }else{
             $this->totalPrice -= ($this->products[$id]['quantity']-$quantity)*$this->products[$id]['product_price'];
         }
         $this->products[$id]['quantity']= $quantity;
+    }
+    public function removeItem($id){
+        $this->totalQuantity -=$this->products[$id]['quantity'];
+        $this->totalPrice -=($this->products[$id]['quantity']*$this->products[$id]['product_price']);
+        unset($this->products[$id]);
     }
 }

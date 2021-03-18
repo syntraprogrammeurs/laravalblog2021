@@ -58,4 +58,11 @@ class FrontendController extends Controller
         Session::put('cart', $cart);
         return redirect()->back();
     }
+    public function removeItem($id){
+        $oldCart = Session::has('cart') ? Session::get('cart') : null;
+        $cart = new Cart($oldCart);
+        $cart->removeItem($id);
+        Session::put('cart', $cart);
+        return redirect()->back();
+    }
 }
