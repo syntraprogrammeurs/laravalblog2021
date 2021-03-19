@@ -6,17 +6,10 @@
 
 
 //require('./bootstrap');
-require('../../resources/admin_assets/vendor/jquery/jquery.min');
-require('../../resources/admin_assets/vendor/bootstrap/js/bootstrap.bundle.min');
-require('../../resources/admin_assets/vendor/jquery-easing/jquery.easing.min');
-require('../../resources/admin_assets/js/sb-admin-2.min');
-
-
-
-
-
-
-
+require('../../resources/admin_assets/vendor/jquery/jquery.js');
+require('../../resources/admin_assets/vendor/bootstrap/js/bootstrap.bundle.min.js');
+require('../../resources/admin_assets/vendor/jquery-easing/jquery.easing.min.js');
+require('../../resources/admin_assets/js/sb-admin-2.min.js');
 
 window.Vue = require('vue').default;
 
@@ -31,7 +24,7 @@ window.Vue = require('vue').default;
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+//Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

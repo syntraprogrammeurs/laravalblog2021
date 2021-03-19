@@ -29,14 +29,13 @@
 /* ------------------
 :: 2.0 Import All CSS
 ------------------ */
-
-@import 'resources/front_assets/css/bootstrap.min.css';
-@import 'resources/front_assets/css/owl.carousel.css';
-@import 'resources/front_assets/css/font-awesome.min.css';
-@import 'resources/front_assets/css/pe-icon-7-stroke.css';
-@import 'resources/front_assets/css/magnific-popup.css';
-@import 'resources/front_assets/css/animate.css';
-@import 'resources/front_assets/css/jquery-ui.min.css';
+@import 'bootstrap.min.css';
+@import 'owl.carousel.css';
+/*@import 'font-awesome.min.css';*/
+/*@import 'pe-icon-7-stroke.css';*/
+@import 'magnific-popup.css';
+@import 'animate.css';
+@import 'jquery-ui.min.css';
 
 /* -------------------
 :: 3.0 Common/Base CSS
