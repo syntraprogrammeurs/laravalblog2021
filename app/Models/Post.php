@@ -49,7 +49,7 @@ class Post extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'photo_id','user_id','category_id','title','slug', 'body'
+        'photo_id','user_id','category_id','title','slug', 'body','best_comment_id'
     ];
 
     public function user(){
@@ -71,4 +71,9 @@ class Post extends Model
     {
         return 'slug';
     }
+    public function setBestComment(PostComment $postcomment){
+        $this->best_comment_id = $postcomment->id;
+    }
+
+
 }

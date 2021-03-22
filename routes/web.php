@@ -40,6 +40,11 @@ Auth::routes(['verify' =>true]);
 
 
 /**BEVEILIGDE ROUTES**/
+Route::group(['middleware'=>['auth', 'verified']], function(){
+   Route::post('/best-comment/{postcomment}', 'App\Http\Controllers\BestCommentController@store')->name('bestcomment');
+});
+
+
 Route::group(['prefix'=>'admin', 'middleware'=>['auth','verified']], function(){
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('verified');
 

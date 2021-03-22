@@ -21,6 +21,7 @@ class CreatePostsTable extends Migration
             $table->string('title');
             $table->string('slug');
             $table->text('body');
+            $table->unsignedBigInteger('best_comment_id')->nullable();
             $table->timestamps();
             $table->softDeletes();
 

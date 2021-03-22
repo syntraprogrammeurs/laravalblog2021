@@ -10,7 +10,6 @@
 
     <p>
 
-
         Displaying {{$users->count()}} of {{ $users->total() }} user(s).
     </p>
     <table class="table table-striped">

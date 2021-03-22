@@ -29,7 +29,11 @@ class AdminUsersController extends Controller
         //
         //$users = User::latest()->paginate(10);
         $users = User::with(['photo','roles'])->withTrashed()->paginate(10);
-
+       $allUsers = User::whereHas(
+            'roles', function($query){
+            $query->where('name', 'administrator');
+        }
+        )->get();
 
 
         return view('admin.users.index', compact('users', 'allUsers'));

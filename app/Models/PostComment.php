@@ -64,5 +64,7 @@ class PostComment extends Model
     public function postcommentreplies(){
         return $this->hasMany(PostCommentReply::class,'postcomment_id');
     }
-
+    public function isBestComment(){
+        return $this->id == $this->post->best_comment_id;
+    }
 }
